@@ -68,7 +68,7 @@
   @media(max-width:680px){.nav-links{display:none}}
 
   /* ---------- hero ---------- */
-  .hero{padding-top:clamp(3rem,8vw,6rem);padding-bottom:clamp(3rem,8vw,5.5rem)}
+  .hero{padding-top:clamp(3rem,8vw,6rem);padding-bottom:clamp(2rem,4vw,3rem)}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center}
   @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:2.5rem}}
 
@@ -80,7 +80,7 @@
 
   .hero h1{
     font-family:var(--display);font-weight:600;
-    font-size:clamp(2.6rem,6.5vw,4.4rem);
+    font-size:clamp(2.2rem,5vw,3.6rem);
     line-height:1.02;letter-spacing:-.02em;color:var(--espresso);margin-bottom:1.3rem;
   }
   .hero h1 .accent{color:var(--coffee)}
@@ -101,11 +101,11 @@
   .area{fill:var(--coffee);opacity:0}
   .axis{stroke:var(--latte);stroke-width:1.2}
   .ylabel{font-family:var(--mono);font-size:12px;fill:var(--muted)}
-  .norm-label{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
-  .norm-label-sm{font-family:var(--mono);font-size:8px;fill:var(--muted)}
+  .norm-label{font-family:var(--mono);font-size:13px;fill:var(--muted)}
+  .norm-label-sm{font-family:var(--mono);font-size:10px;fill:var(--muted)}
 
   /* ---------- sections ---------- */
-  section{padding-top:clamp(3.2rem,7vw,5.5rem);padding-bottom:clamp(1rem,2vw,1.5rem)}
+  section{padding-top:clamp(2rem,4vw,3.2rem);padding-bottom:clamp(1rem,2vw,1.5rem)}
   .sec-label{
     font-family:var(--mono);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;
     color:var(--espresso);font-weight:500;margin-bottom:1.9rem;display:flex;align-items:center;gap:.7rem;
@@ -243,16 +243,16 @@
           <line x1="360" y1="55" x2="360" y2="250" stroke="var(--latte)" stroke-width="0.9" stroke-dasharray="4,3" opacity="0.65"/>
           <text class="ylabel" x="360" y="265" text-anchor="middle">μ</text>
           <!-- normal distribution formula -->
-          <g opacity="0.7">
-            <text class="norm-label" x="50" y="177">f(x) =</text>
-            <text class="norm-label" x="115" y="170" text-anchor="middle">1</text>
-            <line x1="93" y1="173" x2="137" y2="173" stroke="var(--muted)" stroke-width="0.9"/>
-            <text class="norm-label" x="115" y="185" text-anchor="middle">σ√(2π)</text>
-            <text class="norm-label" x="142" y="177">·</text>
-            <text class="norm-label" x="152" y="177">e</text>
-            <text class="norm-label-sm" x="163" y="160">-(x-μ)²</text>
-            <line x1="160" y1="163" x2="200" y2="163" stroke="var(--muted)" stroke-width="0.75"/>
-            <text class="norm-label-sm" x="180" y="173" text-anchor="middle">2σ²</text>
+          <g opacity="0.72">
+            <text class="norm-label" x="50" y="186">f(x) =</text>
+            <text class="norm-label" x="122" y="176" text-anchor="middle">1</text>
+            <line x1="95" y1="181" x2="149" y2="181" stroke="var(--muted)" stroke-width="1.1"/>
+            <text class="norm-label" x="122" y="197" text-anchor="middle">σ√(2π)</text>
+            <text class="norm-label" x="154" y="186">·</text>
+            <text class="norm-label" x="165" y="186">e</text>
+            <text class="norm-label-sm" x="177" y="157">-(x-μ)²</text>
+            <line x1="175" y1="161" x2="221" y2="161" stroke="var(--muted)" stroke-width="0.85"/>
+            <text class="norm-label-sm" x="198" y="174" text-anchor="middle">2σ²</text>
           </g>
         </svg>
         <div class="cap">model outcome distribution</div>
