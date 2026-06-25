@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tran Trung Hieu — Data Scientist · Finance</title>
+<meta name="description" content="Tran Trung Hieu — data scientist in finance. Machine learning, econometrics, and causal inference, built to be trusted and ready for production." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --espresso:#2b1c14;
+    --coffee:#6f4e37;
+    --sienna:#8b4513;
+    --clay:#a0522d;
+    --latte:#d7ccc8;
+    --paper:#f3efe9;
+    --card:#fbf8f4;
+    --ink:#2c2018;
+    --muted:#6b5a4e;
+    --line:#e2d8cf;
+    --cream:#ede4da;
+
+    --display:'Space Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+
+    --maxw:1080px;
+    --pad:clamp(1.25rem,5vw,3rem);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--display);
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--clay);color:#fff}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{
+    font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--espresso);font-weight:500;display:flex;align-items:center;gap:.5rem;
+  }
+  .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--clay)}
+  .nav-links{display:flex;gap:1.6rem;font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .nav-links a{position:relative;padding:.2rem 0;transition:color .25s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--clay);transition:width .28s ease}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a:hover::after{width:100%}
+  @media(max-width:680px){.nav-links{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(3rem,8vw,6rem);padding-bottom:clamp(3rem,8vw,5.5rem)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:2.5rem}}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--sienna);display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.4rem;font-weight:500;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--clay)}
+
+  .hero h1{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(2.6rem,6.5vw,4.4rem);
+    line-height:1.02;letter-spacing:-.02em;color:var(--espresso);margin-bottom:1.3rem;
+  }
+  .hero h1 .accent{color:var(--coffee)}
+  .lead{
+    font-family:var(--serif);font-size:clamp(1.15rem,2.4vw,1.42rem);
+    line-height:1.5;color:var(--ink);max-width:36ch;font-weight:400;
+  }
+  .lead em{font-style:italic;color:var(--coffee)}
+
+  /* ---------- distribution signature ---------- */
+  .viz{position:relative;width:100%}
+  .viz svg{width:100%;height:auto;display:block;overflow:visible}
+  .viz .cap{
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin-top:.9rem;text-align:center;
+  }
+  .curve{fill:none;stroke:var(--coffee);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+  .area{fill:var(--coffee);opacity:0}
+  .axis{stroke:var(--latte);stroke-width:1.2}
+  .ylabel{font-family:var(--mono);font-size:12px;fill:var(--muted)}
+  .norm-label{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+  .norm-label-sm{font-family:var(--mono);font-size:8px;fill:var(--muted)}
+
+  /* ---------- sections ---------- */
+  section{padding-top:clamp(3.2rem,7vw,5.5rem);padding-bottom:clamp(1rem,2vw,1.5rem)}
+  .sec-label{
+    font-family:var(--mono);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--espresso);font-weight:500;margin-bottom:1.9rem;display:flex;align-items:center;gap:.7rem;
+  }
+  .sec-label .num{color:var(--clay)}
+
+  .about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,3.5rem);align-items:start}
+  @media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:2rem}}
+  .prose{font-family:var(--serif);font-size:1.18rem;line-height:1.62;color:var(--ink)}
+  .prose strong{font-weight:500;color:var(--coffee)}
+  .pull{
+    font-family:var(--serif);font-style:italic;font-size:1.35rem;line-height:1.45;
+    color:var(--coffee);margin-top:1.8rem;padding-left:1.2rem;border-left:2px solid var(--clay);
+  }
+
+  .codecard{
+    background:var(--espresso);border-radius:14px;padding:1.5rem 1.6rem;
+    font-family:var(--mono);font-size:.82rem;line-height:1.85;color:var(--cream);
+    box-shadow:0 18px 40px -24px rgba(43,28,20,.55);
+  }
+  .codecard .k{color:#cda37e}
+  .codecard .s{color:#c8b59f}
+  .codecard .p{color:#8c7a6b}
+  .codecard .bar{display:flex;gap:.4rem;margin-bottom:1rem}
+  .codecard .bar span{width:10px;height:10px;border-radius:50%;background:#5a4334}
+
+  /* ---------- focus ---------- */
+  .focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  @media(max-width:680px){.focus-grid{grid-template-columns:1fr}}
+  .focus-cell{background:var(--card);padding:1.8rem 1.8rem 2rem;transition:background .3s}
+  .focus-cell:hover{background:#fff}
+  .focus-cell h3{font-family:var(--display);font-weight:600;font-size:1.3rem;color:var(--espresso);margin-bottom:.7rem;letter-spacing:-.01em}
+  .focus-cell h3::before{content:"";display:inline-block;width:20px;height:3px;background:var(--clay);border-radius:2px;margin-right:.6rem;vertical-align:middle}
+  .focus-cell p{font-size:.98rem;color:var(--muted);line-height:1.6}
+
+  /* ---------- experience ---------- */
+  .role{display:grid;grid-template-columns:.42fr 1fr;gap:2rem;padding:1.8rem 0;border-top:1px solid var(--line)}
+  .role:last-child{border-bottom:1px solid var(--line)}
+  @media(max-width:760px){.role{grid-template-columns:1fr;gap:1rem}}
+  .role-head h3{font-family:var(--display);font-weight:600;font-size:1.22rem;color:var(--espresso);letter-spacing:-.01em}
+  .role-head .where{font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;color:var(--clay);margin-top:.45rem;text-transform:uppercase}
+  .role-body{display:flex;flex-direction:column;gap:1rem}
+  .item .lab{font-family:var(--mono);font-size:.78rem;letter-spacing:.03em;color:var(--coffee);font-weight:500}
+  .item p{font-size:.99rem;color:var(--muted);line-height:1.58;margin-top:.25rem}
+  .item p strong{color:var(--ink);font-weight:500}
+
+  /* ---------- projects ---------- */
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+  @media(max-width:860px){.proj-grid{grid-template-columns:1fr;gap:1rem}}
+  .proj{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:1.6rem 1.5rem 1.5rem;display:flex;flex-direction:column;
+    transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
+  }
+  .proj:hover{transform:translateY(-5px);border-color:var(--clay);box-shadow:0 22px 44px -28px rgba(43,28,20,.5)}
+  .proj h3{font-family:var(--display);font-weight:600;font-size:1.2rem;color:var(--espresso);margin-bottom:.7rem;letter-spacing:-.01em}
+  .proj p{font-size:.95rem;color:var(--muted);line-height:1.58;flex:1}
+  .stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
+  .stack span{font-family:var(--mono);font-size:.68rem;color:var(--coffee);background:var(--paper);border:1px solid var(--line);padding:.25rem .55rem;border-radius:6px}
+
+  /* ---------- two-col exploring/education ---------- */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,3.5rem)}
+  @media(max-width:760px){.two{grid-template-columns:1fr;gap:2.2rem}}
+  .explore li{list-style:none;display:flex;gap:.9rem;padding:.85rem 0;border-bottom:1px dashed var(--line)}
+  .explore li:last-child{border-bottom:none}
+  .explore .mk{font-family:var(--mono);color:var(--clay);font-size:.8rem;padding-top:.15rem}
+  .explore .t{font-family:var(--display);font-weight:600;color:var(--espresso);font-size:1.04rem}
+  .explore .d{font-size:.93rem;color:var(--muted);line-height:1.5}
+  .creds{display:flex;flex-direction:column;gap:.75rem}
+  .cred{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding:.95rem 1.1rem;background:var(--card);border:1px solid var(--line);border-radius:10px}
+  .cred .name{font-family:var(--display);font-weight:600;color:var(--espresso)}
+  .cred .meta{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--clay);text-transform:uppercase}
+  .stack-head{font-family:var(--mono);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--espresso);font-weight:500;margin:2rem 0 1rem}
+
+  /* ---------- footer / contact ---------- */
+  .foot{background:var(--espresso);color:var(--cream);margin-top:clamp(3.5rem,8vw,6rem);padding-top:clamp(3.5rem,8vw,5.5rem);padding-bottom:2.5rem}
+  .foot .eyebrow{color:#cda37e}
+  .foot .eyebrow::before{background:#cda37e}
+  .foot h2{font-family:var(--display);font-weight:600;font-size:clamp(2rem,5.5vw,3.2rem);line-height:1.05;letter-spacing:-.02em;color:#fff;margin-bottom:1.2rem;max-width:18ch}
+  .foot p{font-family:var(--serif);font-size:1.12rem;color:#d8c8ba;max-width:42ch;margin-bottom:2.2rem;line-height:1.55}
+  .contacts{display:flex;flex-wrap:wrap;gap:.9rem}
+  .clink{
+    display:inline-flex;align-items:center;gap:.65rem;
+    font-family:var(--mono);font-size:.82rem;letter-spacing:.03em;
+    padding:.8rem 1.3rem;border:1px solid #5a4334;border-radius:999px;color:var(--cream);
+    transition:background .25s,border-color .25s,transform .25s;
+  }
+  .clink:hover{background:var(--coffee);border-color:var(--coffee);transform:translateY(-2px)}
+  .clink svg{width:16px;height:16px;fill:currentColor}
+  .foot-base{margin-top:3.5rem;padding-top:1.6rem;border-top:1px solid #432f23;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;color:#9c8772;text-transform:uppercase}
+
+  /* ---------- reveal animation ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    .area{opacity:1}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="brand"><span class="dot"></span>TTH · Data Science</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#focus">Focus</a>
+        <a href="#work">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero wrap" id="top">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow reveal in">Data Scientist @ Finance & Business</span>
+        <h1 class="reveal in d1">Tran Trung Hieu</span></h1>
+<p class="lead reveal in d2">I leverage data to solve real-world financial challenges, especially in Risk — and to build models that are <em>trustworthy, production-ready, and driven by actual business impact.</em></p>      </div>
+
+      <div class="viz reveal in d2">
+        <svg viewBox="0 0 600 290" role="img" aria-label="A smooth model outcome distribution curve">
+          <line class="axis" x1="30" y1="250" x2="592" y2="250"></line>
+          <line class="axis" x1="30" y1="50" x2="30" y2="250"></line>
+          <path class="area" id="area" d="M40,250 L40,249.66 L60,249.27 L80,248.5 L100,247.07 L120,244.58 L140,240.45 L160,233.92 L180,224.28 L200,210.87 L220,193.34 L240,171.89 L260,147.49 L280,122.0 L300,97.85 L320,77.88 L340,64.64 L360,60 L380,64.64 L400,77.88 L420,97.85 L440,122.0 L460,147.49 L480,171.89 L500,193.34 L520,210.87 L540,224.28 L560,233.92 L580,240.45 L580,250 Z"></path>
+          <path class="curve" id="curve" d="M40,249.66 L60,249.27 L80,248.5 L100,247.07 L120,244.58 L140,240.45 L160,233.92 L180,224.28 L200,210.87 L220,193.34 L240,171.89 L260,147.49 L280,122.0 L300,97.85 L320,77.88 L340,64.64 L360,60 L380,64.64 L400,77.88 L420,97.85 L440,122.0 L460,147.49 L480,171.89 L500,193.34 L520,210.87 L540,224.28 L560,233.92 L580,240.45"></path>
+          <text class="ylabel" x="38" y="60">p(x)</text>
+          <!-- mean line -->
+          <line x1="360" y1="55" x2="360" y2="250" stroke="var(--latte)" stroke-width="0.9" stroke-dasharray="4,3" opacity="0.65"/>
+          <text class="ylabel" x="360" y="265" text-anchor="middle">μ</text>
+          <!-- normal distribution formula -->
+          <g opacity="0.7">
+            <text class="norm-label" x="50" y="177">f(x) =</text>
+            <text class="norm-label" x="115" y="170" text-anchor="middle">1</text>
+            <line x1="93" y1="173" x2="137" y2="173" stroke="var(--muted)" stroke-width="0.9"/>
+            <text class="norm-label" x="115" y="185" text-anchor="middle">σ√(2π)</text>
+            <text class="norm-label" x="142" y="177">·</text>
+            <text class="norm-label" x="152" y="177">e</text>
+            <text class="norm-label-sm" x="163" y="160">-(x-μ)²</text>
+            <line x1="160" y1="163" x2="200" y2="163" stroke="var(--muted)" stroke-width="0.75"/>
+            <text class="norm-label-sm" x="180" y="173" text-anchor="middle">2σ²</text>
+          </g>
+        </svg>
+        <div class="cap">model outcome distribution</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="about" class="wrap">
+      <div class="sec-label reveal"><span class="num">§</span> About</div>
+      <div class="about-grid">
+        <div>
+<p class="lead reveal in d2">My background is in banking — fraud detection, risk, and forecasting. I turn business and regulatory questions into models that <em>people can trust and that sustain performance post-live</em>, caring just as much about <em>explaining why a number moves</em> as predicting where it goes next.</p>          <p class="pull reveal d2">Explain the why — don&rsquo;t just predict the what.</p>
+        </div>
+        <div class="codecard reveal d2" aria-hidden="true">
+          <div class="bar"><span></span><span></span><span></span></div>
+          <span class="p">profile</span> = {<br/>
+          &nbsp;&nbsp;<span class="k">"role"</span>: <span class="s">"Data Scientist @ Finance"</span>,<br/>
+          &nbsp;&nbsp;<span class="k">"methods"</span>: [<span class="s">"ML"</span>,<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Econometrics"</span>,<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Causal Inference"</span>],<br/>
+          &nbsp;&nbsp;<span class="k">"now"</span>: [<span class="s">"MLOps"</span>, <span class="s">"Drift"</span>],<br/>
+          &nbsp;&nbsp;<span class="k">"values"</span>: <span class="s">"clear over clever"</span>,<br/>
+          }
+        </div>
+      </div>
+    </section>
+
+    <section id="focus" class="wrap">
+      <div class="sec-label reveal"><span class="num">§</span> Focus</div>
+      <div class="focus-grid reveal d1">
+        
+        <div class="focus-cell">
+          <h3>Machine Learning</h3>
+          <p>Models that predict and classify accurately, even with messy or imbalanced data. I lean on <em>gradient boosting, ensembles, and feature engineering</em>, backed by rigorous evaluation so that models which look good in testing actually hold up in production.</p>
+        </div>
+        
+        <div class="focus-cell">
+          <h3>Econometrics</h3>
+          <p>The statistical backbone for finance. Proficient in <em>time-series, panel data, and logistic/linear regressions</em>, along with the precise diagnostics that separate true financial signals from random noise.</p>
+        </div>
+        
+        <div class="focus-cell">
+          <h3>Causal Inference</h3>
+          <p>Moving beyond simple correlation to true causation. I utilize <em>Diff-in-Diff, propensity score matching, uplift modeling, and debiased ML</em>—the exact tools needed for data-driven decision making, not just forecasting.</p>
+        </div>
+        
+        <div class="focus-cell">
+        <h3>Computational Statistics</h3>
+        <p>The machinery for complex estimation. Proficient in <em>resampling methods, Bootstrapping, and Monte Carlo simulations</em> to stress-test financial models, estimate non-linear parameters, and construct robust confidence intervals.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="work" class="wrap">
+      <div class="sec-label reveal"><span class="num">§</span> Experience</div>
+
+      <div class="role reveal d1">
+        <div class="role-head">
+          <h3>Data Scientist</h3>
+          <div class="where">Data Analytics Platform</div>
+        </div>
+        <div class="role-body">
+          <div class="item">
+            <div class="lab">Revenue forecasting</div>
+            <p>Built the full revenue forecasting system — from <strong>choosing the method</strong>, to <strong>putting it in production</strong>, to <strong>watching it for drift</strong> over time.</p>
+          </div>
+          <div class="item">
+            <div class="lab">Forecast decomposition</div>
+            <p>Used <strong>causal inference</strong> and <strong>SHAP</strong> to show which factors actually drive revenue up or down — not just the ones that happen to move alongside it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="role reveal d2">
+        <div class="role-head">
+          <h3>Data Analyst</h3>
+          <div class="where">Finance &amp; Banking</div>
+        </div>
+        <div class="role-body">
+          <div class="item">
+            <div class="lab">Fraud analytics</div>
+            <p>Built transaction-monitoring and anomaly detection that cut false alarms while still catching real fraud.</p>
+          </div>
+          <div class="item">
+            <div class="lab">Operational risk</div>
+            <p>Analysed loss events, tracked key risk indicators, and produced reporting in line with banking risk standards.</p>
+          </div>
+          <div class="item">
+            <div class="lab">Credit &amp; behavioural modelling</div>
+            <p>Engineering robust features for B-score model, combined with the analysis to detect early signs of financial distress.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="wrap">
+      <div class="sec-label reveal"><span class="num">§</span> Projects</div>
+      <div class="proj-grid">
+        <article class="proj reveal d1">
+          <h3>Credit Risk Modelling</h3>
+          <p>A scoring model that estimates the chance of default, with proper calibration, validation, and thresholds tied to real business decisions.</p>
+          <div class="stack"><span>Logistic Regression</span><span>Streamlit</span><span>SQL</span></div>
+        </article>
+        <article class="proj reveal d2">
+          <h3>RFM Segmentation</h3>
+          <p>Grouping customers by how recently, how often, and how much they buy — to find the segments worth the most.</p>
+          <div class="stack"><span>Python</span><span>SQL</span><span>Superset</span></div>
+        </article>
+        <article class="proj reveal d3">
+          <h3>Titanic Survival</h3>
+          <p>A full classification project, end to end: exploring the data, building features, and testing the model.</p>
+          <div class="stack"><span>Machine Learning</span><span>Streamlit</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="two">
+        <div>
+          <div class="sec-label reveal"><span class="num">§</span> Currently exploring</div>
+          <ul class="explore reveal d1">
+            <li>
+              <span class="mk">&rarr;</span>
+              <div><div class="t">MLOps</div><div class="d">Reproducible pipelines with MLflow and a Feast feature store.</div></div>
+            </li>
+            <li>
+              <span class="mk">&rarr;</span>
+              <div><div class="t">Production stability</div><div class="d">Automatic drift detection so models keep performing after launch.</div></div>
+            </li>
+            <li>
+              <span class="mk">&rarr;</span>
+              <div><div class="t">Theory</div><div class="d">Reading deeper into why models work — to design better ones.</div></div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-label reveal"><span class="num">§</span> Education</div>
+          <div class="creds reveal d1">
+            <div class="cred"><span class="name">FRM Part II</span><span class="meta">Risk</span></div>
+            <div class="cred"><span class="name">Foreign Trade University</span><span class="meta"></span></div>
+          </div>
+          <div class="stack-head reveal">Tech stack</div>
+          <div class="stack reveal d2">
+            <span>Python</span><span>SQL</span><span>Spark</span><span>R</span>
+            <span>scikit-learn</span><span>SHAP</span>
+            <span>MLflow</span><span>Feast</span>
+            <span>Streamlit</span><span>Superset</span><span>Git</span><span>Docker</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot" id="contact">
+    <div class="wrap">
+      <span class="eyebrow reveal">Get in touch</span>
+      <h2 class="reveal d1">Let&rsquo;s talk data and models.</h2>
+      <p class="reveal d2">Happy to chat about machine learning, forecasting, and data work in finance.</p>
+      <div class="contacts reveal d3">
+        <a class="clink" href="www.linkedin.com/in/tran-trung-hieu-5555ba302" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.24 8h4.5V24H.24V8zM8.5 8h4.31v2.18h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V24h-4.5v-6.36c0-1.52-.03-3.47-2.11-3.47-2.11 0-2.43 1.65-2.43 3.36V24H8.5V8z"/></svg>
+          LinkedIn
+        </a>
+        <a class="clink" href="https://github.com/hieulalala123" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.05-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.75.08-.74.08-.74 1.21.09 1.84 1.25 1.84 1.25 1.08 1.84 2.83 1.31 3.52 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.39 1.24-3.23-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.92 1.24 3.23 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.29 0 .32.21.7.82.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/></svg>
+          GitHub
+        </a>
+      </div>
+      <div class="foot-base">
+        <span>Tran Trung Hieu</span>
+        <span>Clear models, built for production</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){ if(!el.classList.contains('in')) io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var curve = document.getElementById('curve');
+  var area = document.getElementById('area');
+  if(curve && !reduce){
+    var len = curve.getTotalLength();
+    curve.style.strokeDasharray = len;
+    curve.style.strokeDashoffset = len;
+    curve.getBoundingClientRect();
+    curve.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1)';
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ curve.style.strokeDashoffset = '0'; });
+    });
+    if(area){
+      area.style.transition = 'opacity 1s ease 1.1s';
+      setTimeout(function(){ area.style.opacity = '.07'; }, 50);
+    }
+  } else if(area){
+    area.style.opacity = '.07';
+  }
+})();
+</script>
+</body>
+</html>
